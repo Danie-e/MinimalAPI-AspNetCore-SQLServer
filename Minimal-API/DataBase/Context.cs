@@ -5,8 +5,10 @@ namespace Minimal_API.DataBase
 {
     public class Context : DbContext
     {
-        public Context(DbContextOptions<Context> options) : base(options) { }
-
-        public DbSet<Produto> Produtos => Set<Produto>();
+        public DbSet<Produto> Produtos { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            _ = optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=MinimalApi;Trusted_Connection=True;TrustServerCertificate=True");
+        }
     }
 }
